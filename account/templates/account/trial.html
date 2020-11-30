@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col-lg-8 mx-auto text-center">
+      <h1 class="display-4">7 days free trial</h1>
+      <p class="lead mb-0">Get all our offered services for free.</p>
+      <p class="lead mb-0">After 7 days, you'll be charged <b>49.99$<small>/ mo</small></b> automatically.</p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-7 mx-auto">
+      <div class="bg-white rounded-lg shadow-sm p-5">
+        <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-3">
+          <li class="nav-item">
+            <div data-toggle="pill" class="nav-link active rounded-pill">
+                <i class="fa fa-credit-card"></i>
+                Credit Card
+            </div>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+
+          <div id="nav-tab-card" class="tab-pane fade show active">
+            <p id="error-code" class="alert alert-danger" style="display:none"></p>
+
+            <!-- Payment form -->
+            <label for="username">Full name (on the card)</label>
+            <input type="text" id="cardholder-name" name="username" required class="form-control">
+            <br/>
+            <div id="card-element"></div>
+            <br/>
+            <button type="button" id="card-button" class="subscribe btn btn-primary btn-lg rounded-pill shadow-sm">
+                Confirm
+            </button>
+            <button style="float:right" type="button" id="default-button" class="subscribe btn btn-primary btn-lg rounded-pill shadow-sm">
+                Use default
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{% static 'account/credit_card_info.js' %}"></script>
+<script>
+var user = {{ user | safe}};
+const csrf = "{{ csrf_token }}";
+</script>
+{% endblock content %}

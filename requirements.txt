@@ -1,0 +1,4 @@
+Django==2.2.12
+django-registration==3.1
+psycopg2==2.8.5
+stripe==2.48.0

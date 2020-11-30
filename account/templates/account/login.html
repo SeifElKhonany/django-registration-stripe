@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form class="form-signin" method="post">
+    {% csrf_token %}  <!--for form security-->
+    <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
+
+    <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+    {% for field in login_form %}
+    <p>
+        {% for error in field.errors %}
+    <p style="color: blue;">{{error}}</p>
+    {% endfor %}
+    </p>
+    {% endfor %}
+    {% if login_form.non_field_errors %}  <!--errors not relating to a specific field-->
+    <div style="color: red;">
+        <p>{{login_form.non_field_errors}}</p>
+    </div>
+    {% endif %}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+</form>
+
+{% endblock content %}

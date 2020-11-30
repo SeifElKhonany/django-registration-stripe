@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form class="form-signin" method="post">
+    {% csrf_token %}  <!--for form security-->
+    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
+    <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
+    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm password" required>
+    <!--name field is because of the cleaned data function in forms.py-->
+
+    {% for field in form %}
+    <p>
+        {% for error in field.errors %}
+    <p style="color: blue;">{{error}}</p>
+    {% endfor %}
+    </p>
+    {% endfor %}
+    {% if form.non_field_errors %}  <!--errors not relating to a specific field-->
+    <div style="color: red;">
+        <p>{{form.non_field_errors}}</p>
+    </div>
+    {% endif %}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+</form>
+
+{% endblock content %}

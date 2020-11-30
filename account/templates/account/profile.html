@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="profile">
+        <form method="post">{% csrf_token %}
+            <h5>Username</h5>
+            <input type="text" name="username" id="inputUsername" class="form-control" required value="{{request.user.username}}">
+            <br/>
+            <h5>Email</h5>
+            <input type="email" name="email" id="inputEmail" class="form-control" required value="{{request.user.email}}"><br/>
+            {% for field in form %}
+                <p>
+                    {% for error in field.errors %}
+                        <p style="color: red;">{{error}}</p>
+                    {% endfor %}
+                </p>
+            {% endfor %}
+            {% if form.non_field_errors %}
+            <p>
+                {{form.non_field_errors}}
+            </p>
+            {% endif %}
+
+          <button type="submit" class="subscribe btn btn-primary btn-md rounded-pill shadow-sm">
+              Change
+          </button>
+        </form>
+
+        <div id = "sub-state">
+            <h5>Subscription</h5>
+            <span>{{request.user.subscription.get_state_display}}</span>
+            {% if request.user.subscription.state != request.user.subscription.CANCELLED and request.user.subscription.state != request.user.subscription.INACTIVE %}
+            <form id="profile-sub" action="cancel_sub/" method="post">{% csrf_token %}
+                <button type="submit" class="subscribe btn btn-danger btn-md rounded-pill shadow-sm">
+                      Cancel
+                </button>
+            </form>
+            {% endif %}
+        </div>
+
+    </div>
+    <h5 id="cards-display" style="display:inline">My cards</h5>
+    <img style="display:inline" src="{% static 'account/credit_card.png' %}" width="32" height="32">
+    <div class="row">
+        {% for card in cards %}
+            <div class="col-sm-4 py-2">
+                <div class="card text-white bg-primary">
+                    <div class="card-body" data-id="{{card.id}}" data-no="{{card.card.last4}}">
+                        <img class="card-brand" data-brand="{{card.card.brand}}" src="{% static 'account/visa.png' %}" width="32" height="32">
+                        <p class="card-text">Card Holder: {{ card.billing_details.name }}</p>
+                        <p class="card-text">Number: **** **** **** {{ card.card.last4 }}</p>
+                        <p class="card-text">Expiry Date: {{ card.card.exp_month }}/ {{ card.card.exp_year }}</p>
+                        <p class="card-text">Zip: {{ card.billing_details.address.postal_code }}</p>
+                        {% if card.id == request.user.subscription.default_payment_method %}
+                        <span>Default </span>
+                        <img style="display: inline" src="{% static 'account/checkmark.png' %}">
+                        {% else %}
+                        <button class="btn btn-outline-light" onclick="makeDefault(this)">Make Default</button>
+                        {% endif %}
+                        <button style="float:right" class="btn btn-outline-light" onclick="remove(this)">Remove</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-sm-4 py-2">
+            <div class="card card-body h-100">
+                <h5 class="card-title">Add a card</h5>
+                <label for="cardholder-name">Full name (on the card)</label>
+                <input type="text" id="cardholder-name" name="username" required class="form-control">
+                <br/>
+                <div id="card-element"></div>
+                <br/>
+                <button type="button" id="card-button" class="subscribe btn btn-primary btn-lg rounded-pill shadow-sm">
+                    Confirm
+                </button>
+                <br/>
+                <p id="error-code" class="alert alert-danger" style="display:none"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dummy"></div>
+<script src="{% static 'account/edit_card.js' %}"></script>
+<script>
+var static = "{% static 'account' %}/";
+const csrf = "{{ csrf_token }}";
+const user = {{ user | safe}};
+</script>
+{% endblock content %}
