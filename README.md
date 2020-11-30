@@ -1,5 +1,5 @@
 # django-registration-stripe
-This was a trial project for my application to the company __Whatsbusy_.
+This was a trial project for my application to the company __Whatsbusy__.
 
 ## Demo
 ![Demo](demo/demo.gif)
