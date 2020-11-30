@@ -3,6 +3,7 @@ This was a trial project for my application to the company __Whatsbusy__.
 
 ## Demo
 ![Demo](demo/demo.gif)
+![Dashboard](demo/dashboard.png)
 
 ## About
 This is a simple Django website where a user can sign up for the website using `django-registration`, 
