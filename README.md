@@ -1,10 +1,10 @@
 # django-registration-stripe
-
+This was a trial project for my application to the company __Whatsbusy_.
 
 ## Demo
 ![Demo](demo/demo.gif)
 
-# Django-Stripe
+## About
 This is a simple Django website where a user can sign up for the website using `django-registration`, 
 create a membership with a trial period, add and remove several credit cards on their profile, 
 all using the [Stripe APIs](https://stripe.com/docs/api).
