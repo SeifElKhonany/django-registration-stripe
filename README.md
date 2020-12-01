@@ -40,4 +40,4 @@ all using the [Stripe APIs](https://stripe.com/docs/api).
 
 ## Deployment
 In order to go live with __Stripe__, you need to verify your company and get live API keys which is not available in some countries including mine.
-This project is setup to be deployed with Heroku. You can complete the steps using this [tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment).
+This project is set up to be deployed with Heroku. You can complete the steps using this [tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment).
